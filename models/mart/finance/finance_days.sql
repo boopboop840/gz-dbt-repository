@@ -1,3 +1,4 @@
+
 with orders_margin as (
     select *
     from {{ ref('int_orders_margin') }}
