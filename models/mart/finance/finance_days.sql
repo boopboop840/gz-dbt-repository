@@ -21,9 +21,11 @@ joined as (
         orders_margin.revenue,
         orders_margin.quantity,
         orders_margin.purchase_cost,
+        orders_margin.margin,
         orders_operational.operational_margin,
         ship.shipping_fee,
-        ship.logcost
+        ship.logcost,
+        ship.ship_cost
     from orders_margin
     left join orders_operational
         on orders_margin.orders_id = orders_operational.orders_id
@@ -39,7 +41,9 @@ select
     sum(operational_margin) as operational_margin,
     sum(purchase_cost) as purchase_cost,
     sum(shipping_fee) as shipping_fee,
-    sum(logcost) as logcost,
-    sum(quantity) as quantity
+    sum(logcost) as log_cost,
+    sum(quantity) as quantity,
+    sum(margin) as margin,
+    sum(ship_cost) as ship_cost
 from joined
 group by date_date

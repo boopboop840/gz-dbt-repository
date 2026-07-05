@@ -7,6 +7,21 @@ sources:
     description: Raw data from BigQuery containing Greenweez sales, product and shipping data.
 
     tables:
+      - name: adwords
+        identifier: raw_gz_adwords
+        
+
+      - name: bing
+        identifier: raw_gz_bing
+        
+
+      - name: criteo
+        identifier: raw_gz_criteo
+        
+
+      - name: facebook
+        identifier: raw_gz_facebook
+        
       - name: sales
         identifier: raw_gz_sales
         description: Sales data from Greenweez. One row represents one product found in one order.
@@ -60,3 +75,71 @@ sources:
             description: Logistics cost related to the order.
           - name: ship_cost
             description: Shipping cost as stored in the raw shipping table.
+
+            
+models:
+  - name: int_campaigns_day
+    description: Daily aggregated ads campaign performance from int_campaigns.
+    columns:
+      - name: date_date
+        description: Date of the advertising campaign performance.
+        tests:
+          - not_null
+          - unique
+
+      - name: ads_cost
+        description: Total advertising cost for the day.
+
+      - name: ads_impression
+        description: Total number of ad impressions for the day.
+
+      - name: ads_clicks
+        description: Total number of ad clicks for the day.
+
+  - name: finance_campaigns_day
+    description: Daily finance performance combined with daily advertising campaign data.
+    columns:
+      - name: date
+        description: Date of the daily finance and advertising performance.
+        tests:
+          - not_null
+          - unique
+
+      - name: ads_margin
+        description: Operational margin after subtracting advertising cost.
+
+      - name: average_basket
+        description: Average revenue per transaction for the day.
+
+      - name: operational_margin
+        description: Daily operational margin before advertising cost.
+
+      - name: ads_cost
+        description: Total advertising cost for the day.
+
+      - name: ads_impression
+        description: Total number of advertising impressions for the day.
+
+      - name: ads_clicks
+        description: Total number of advertising clicks for the day.
+
+      - name: quantity
+        description: Total quantity of products sold for the day.
+
+      - name: revenue
+        description: Total revenue for the day.
+
+      - name: purchase_cost
+        description: Total product purchase cost for the day.
+
+      - name: margin
+        description: Daily commercial margin before logistics costs.
+
+      - name: shipping_fee
+        description: Total shipping fees charged to customers for the day.
+
+      - name: log_cost
+        description: Total logistics cost for the day.
+
+      - name: ship_cost
+        description: Total shipping cost for the day.
